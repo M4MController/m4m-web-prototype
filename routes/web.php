@@ -30,3 +30,6 @@ Route::get('/settings', 'MainController@settings');
 Route::get('/payment', 'MainController@payment');
 Route::get('/support', 'MainController@support');
 Route::get('/entity/{id}', 'MainController@entity');
+
+Route::resource('auth', 'AuthApiController');
+Route::post('auth.store', 'AuthApiController@store');

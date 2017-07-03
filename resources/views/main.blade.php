@@ -360,11 +360,11 @@
             <div class="popup-content">
                 <div class="popupFormWrap">
                     <h3 class="text-center">Авторизация</h3>
-                    <form id="authorizationForm" class="popupForm" method="POST" action="{{ route('login') }}">
+                    <form id="authorizationForm" class="popupForm" method="POST" action="{{ route('auth.store') }}">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label for="userEmail">E-mail адрес:</label>
-                            <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
+                            <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
                             <small class="form-control-feedback errorMsg_js"></small>
                         </div>
                         <div class="form-group">
