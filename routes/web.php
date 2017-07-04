@@ -20,7 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'MainController@mainPage');
 Route::get('/test', 'MainController@test');
-Route::get('/office', 'OfficeController@index');
+Route::get('/office','OfficeController@index');
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::get('/object/update/json', 'ObjectController@updateJson');
 Route::post('/object/update/add', 'ObjectController@addController');
@@ -31,5 +31,5 @@ Route::get('/payment', 'MainController@payment');
 Route::get('/support', 'MainController@support');
 Route::get('/entity/{id}', 'MainController@entity');
 
-Route::resource('auth', 'AuthApiController');
-Route::post('auth.store', 'AuthApiController@store');
+Route::get('/login', ['as' => 'login','uses' => 'AuthApiController@authenticate_get']);
+Route::post('/login/check', ['as' => 'login/check','uses' => 'AuthApiController@authenticateCheck']);

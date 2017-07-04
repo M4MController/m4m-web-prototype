@@ -360,8 +360,11 @@
             <div class="popup-content">
                 <div class="popupFormWrap">
                     <h3 class="text-center">Авторизация</h3>
-                    <form id="authorizationForm" class="popupForm" method="POST" action="{{ route('auth.store') }}">
+                    <form id="authorizationForm" class="popupForm">
                         {{ csrf_field() }}
+                        <div class="form-group text-center" id="error_login_massage">
+
+                        </div>
                         <div class="form-group">
                             <label for="userEmail">E-mail адрес:</label>
                             <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
@@ -372,7 +375,7 @@
                             <input id="password" type="password" class="form-control" name="password" required>
                             <small class="form-control-feedback errorMsg_js"></small>
                         </div>
-                        <button class="popupForm__item text-center">
+                        <button class="popupForm__item text-center" id="authorizationButton">
                             <a class="btn btnStyle btnStyle_сolor popupEnterBtn">Войти
                                 <!-- <button class="btn btnStyle btnStyle_сolor">Войти</button> -->
                             </a>
@@ -385,12 +388,42 @@
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
 <script src="/js/main.js"></script>
 <script src="/js/popup.js"></script>
+<script>
 
+    $("#authorizationButton").on('click', function (e)  {
+        e.preventDefault();
+        $.ajax({
+            method: 'POST',
+            url: '/login/check',
+            data: $("#authorizationForm").serialize(),
+            dataType: "json",
+            success: function(data){
+                $('#error_login_massage').empty();
+                if(data.error==0){
+                    window.location.href = "/office";
+                } else {
+                    $('#error_login_massage').html('<span class="text-danger">Вы ввели неверный логин или пароль</span>');
+                }
+
+        },
+        statusCode: {
+            500: function() {
+                //
+            },
+            422: function(data) {
+                //
+            }
+        }
+    });
+
+
+    });
+</script>
 </body>
 </html>

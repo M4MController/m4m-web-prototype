@@ -330,7 +330,7 @@
 										<p>Вы успешно зарегистрировали объект в службе.</p>
 
 										<div class="popupForm__item text-center">
-											<button class="btn btnStyle btnStyle_сolor nextStepBtn nextStepBtn_js">Начать отслеживание</butt
+											<button class="btn btnStyle btnStyle_сolor nextStepBtn nextStepBtn_js">Начать отслеживание</button>
                                     </div>
                                 </div>
                             </div>
