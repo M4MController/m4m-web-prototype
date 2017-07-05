@@ -224,14 +224,16 @@
 										<h3>ДОБАВИТЬ ОБЪЕКТ</h3>
 										<span class="popupForm__item">
 											<label for="m4mEntityName">Название объекта:</label>
-											<input type="text" name="m4mEntityName" value="" />
+											<input type="text" name="m4mEntityName" value="" id="m4mEntityName"/>
+											<div class="form-group text-center" id="error_m4mEntityName_massage"></div>
 										</span>
+
 										<span class="popupForm__item">
 											<label for="m4mCategory">Категория:</label>
 											<select id="m4mCategory" name="m4mCategory">
 												<option value="smarthome">Умный дом</option>
-												<option value="smartcar">Умная машина</option>
-												<option value="smarthealth">Умное здоровье</option>
+												{{--<option value="smartcar">Умная машина</option>--}}
+												{{--<option value="smarthealth">Умное здоровье</option>--}}
 											</select>
 										</span>
 										<span class="popupForm__item text-center">
@@ -249,6 +251,7 @@
 
 										<span class="popupForm__item">
 											<input type="text" name="deviceId" value="" placeholder="Введите ID устройства" />
+											<div class="form-group text-center" id="error_deviceId"></div>
 										</span>
 										<span class="popupForm__item text-center">
 											<button class="btn btnStyle btnStyle_сolor nextStepBtn nextStepBtn_js">Поиск устройства</button>
@@ -265,6 +268,7 @@
 
 										<span class="popupForm__item">
 											<input type="text" name="deviceMac" value="" placeholder="Введите MAC-адрес" />
+											<div class="form-group text-center" id="error_deviceMac"></div>
 										</span>
 										<span class="popupForm__item text-center">
 											<button class="btn btnStyle btnStyle_сolor nextStepBtn nextStepBtn_js">Поиск устройства</button>
@@ -301,7 +305,7 @@
 										</div>
 
 										<div>
-											<select>
+											<select id="city">
 												<option value="kharkiv-city-water">Харьковводоканал</option>
 												<option value="kharkiv-city-electricity">Харьковоблэнерго</option>
 												<option value="kharkiv-city-gas">Харьковгаз</option>
@@ -312,7 +316,7 @@
 											<div class="form-check">
 												<label for="accept-the-terms" class="form-check-label"><span class="customCheckbox"><span class="icon-check-symbol icon-ok"></span></span> Принять условия <a href="/">лицензионного соглашения</a>
 												</label>
-										    	<input id="accept-the-terms" type="checkbox" class="form-check-input" name="accept-the-terms">
+										    	<input id="accept-the-terms" type="checkbox" class="form-check-input" name="accept_the_terms">
 											</div>
 										</div>
 
@@ -330,12 +334,12 @@
 										<p>Вы успешно зарегистрировали объект в службе.</p>
 
 										<div class="popupForm__item text-center">
-											<button class="btn btnStyle btnStyle_сolor nextStepBtn nextStepBtn_js">Начать отслеживание</button>
+											<button class="btn btnStyle btnStyle_сolor nextStepBtn nextStepBtn_js" id="start">Начать отслеживание</button>
                                     </div>
                                 </div>
                             </div>
 
-
+							{{ csrf_field() }}
                         </form>
                     </div>
                 </div>

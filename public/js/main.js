@@ -254,7 +254,7 @@ $(document).ready(function(){
 		var category = $('#m4mCategory option:selected').text();
 		var deviceMac = $('#deviceMac').val();
 		var city = $('#city').val();
-        var _token = $('#token').val();
+        var _token = $('input[name="_token"]').val();
 
         $.ajax({
             type: "POST",

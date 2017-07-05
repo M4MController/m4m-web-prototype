@@ -25,6 +25,7 @@ Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::get('/object/update/json', 'ObjectController@updateJson');
 Route::post('/object/update/add', 'ObjectController@addController');
 Route::post('/object/save', 'ObjectController@saveController');
+Route::post('/object/check', 'ObjectController@checkController');
 Route::get('/finance', 'MainController@finance');
 Route::get('/settings', 'MainController@settings');
 Route::get('/payment', 'MainController@payment');
