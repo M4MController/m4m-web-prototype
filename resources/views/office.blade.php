@@ -250,7 +250,7 @@
 										<p>На задней панели контроллера находится идентификатор устройства. Он также находится на коробке с устройством.</p>
 
 										<span class="popupForm__item">
-											<input type="text" name="deviceId" value="" placeholder="Введите ID устройства" />
+											<input type="text" name="deviceId" value="" placeholder="Введите ID устройства" id="deviceId"/>
 											<div class="form-group text-center" id="error_deviceId"></div>
 										</span>
 										<span class="popupForm__item text-center">
@@ -267,7 +267,7 @@
 										<p>Чтобы добавить это устройство, введите MAC-адрес маршрутизатора, к которому подключен контроллер.</p>
 
 										<span class="popupForm__item">
-											<input type="text" name="deviceMac" value="" placeholder="Введите MAC-адрес" />
+											<input type="text" name="deviceMac" value="" placeholder="Введите MAC-адрес" id="deviceMac"/>
 											<div class="form-group text-center" id="error_deviceMac"></div>
 										</span>
 										<span class="popupForm__item text-center">
