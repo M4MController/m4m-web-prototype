@@ -26,7 +26,9 @@ class AuthApiController extends Controller
             if (!$validator->fails()) {
                 $email = $request->request->get('email');
                 $password = $request->request->get('password');
-                if ($this->authApi($email, $password) == "200") {
+                if ($session_id = $this->authApi($email, $password)) {
+                    \Session::put('user_session_auth', $session_id['user_session']);
+//                    $request->session()->put('user_session_auth', );
                     if (Auth::attempt(['email' => $email, 'password' => $password])) {
                         return response()->json([
                             'error' => '0'
@@ -47,19 +49,29 @@ class AuthApiController extends Controller
      * @return string
      */
     private function authApi($email, $password) {
-        $url = "https://app.swaggerhub.com/apis/wolf1996/iot_api/1.0.0/user/sign_in";
+        $data = array("e_mail" => $email, "password" => $password);
+        $data_string = json_encode($data);
 
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_HEADER, false);
-        curl_setopt($ch, CURLOPT_NOBODY  , true);
+        $ch = curl_init('http://194.58.120.31:8081/user/sign_in');
+        curl_setopt($ch, CURLOPT_HEADER, true);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS,
-            "e_mail=" . $email . "&password=". $password);
-        curl_exec($ch);
-        $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen($data_string))
+        );
+        $result = curl_exec($ch);
+        preg_match_all('/^Set-Cookie:\s*([^;]*)/mi', $result, $matches);
+        $cookies = array();
+        foreach($matches[1] as $item) {
+            parse_str($item, $cookie);
+            $cookies = array_merge($cookies, $cookie);
+        }
+        if(isset($cookies) && key_exists('user_session',$cookies)){
+            return $cookies;
+        }
+        return false;
 
-        return (string)$httpcode;
     }
 }

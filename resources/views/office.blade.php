@@ -67,16 +67,16 @@
                             <button class="btn btnStyle btnStyle_сolor openNewEntityPopup_js">Добавить объект</button>
                         </div>
                     </div>
-                    <div class="row havings">
+                    <div class="row havings" id="controllers_block">
                         @foreach($objects as $object)
                             <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                                 <div class="cardStyle objectWrap">
                                     <div class="objectWrap__title">
                                                 <span class="objectWrap__name">
-                                                    <strong class="objectName blackText">{{$object->name}}</strong>
+                                                    <strong class="objectName blackText">{{$object['name']}}</strong>
                                                     <span class="objectIndicator"></span>
                                                 </span>
-                                        <small class="objectTitle">система "{{$object->category}}"</small>
+                                        {{--<small class="objectTitle">система "{{$object->category}}"</small>--}}
                                     </div>
                                     <div class="row objectServices">
                                         {{--<div class="col-md-6 col-sm-6 col-xs-12 objectServicesWrap">--}}
@@ -130,7 +130,7 @@
                                             <div class="stakedBarChartWrap">
                                                 <div class="cardRow">
                                                     <span class="cardRow__item">За месяц:</span>
-                                                    <span class="cardRow__item text-right blackText">300 кВт</span>
+                                                    <span class="cardRow__item text-right blackText">{{ $object['month'] }} кВт</span>
                                                 </div>
                                                 <!-- <StakedBarChart current_indicators={300} compared={400} special_color={true} /> -->
                                             </div>
@@ -138,7 +138,7 @@
                                             <div class="stakedBarChartWrap">
                                                 <div class="cardRow">
                                                     <span class="cardRow__item">За прошлый месяц:</span>
-                                                    <span class="cardRow__item text-right blackText">200 кВт</span>
+                                                    <span class="cardRow__item text-right blackText">{{ $object['prev_month'] }} кВт</span>
                                                 </div>
                                                 <!-- <StakedBarChart current_indicators={200} compared={400} /> -->
                                             </div>
@@ -146,7 +146,7 @@
                                             <div class="stakedBarChartWrap">
                                                 <div class="cardRow">
                                                     <span class="cardRow__item">Среднее за год:</span>
-                                                    <span class="cardRow__item text-right blackText">250 кВт</span>
+                                                    <span class="cardRow__item text-right blackText">{{ $object['prev_year'] }} кВт</span>
                                                 </div>
                                                 <!-- <StakedBarChart current_indicators={250} compared={400} /> -->
                                             </div>
@@ -154,7 +154,7 @@
                                     </div>
                                     <div class="row cardBtnsWrap">
                                         <div class="col-md-6 col-sm-6 col-xs-6">
-                                            <a href="/entity/{{$object->id}}"><button class="btn btnStyle btnStyle_сolorless">Подробнее</button></a>
+                                            <a href="/entity/{{$object['cotroller_id']}}"><button class="btn btnStyle btnStyle_сolorless">Подробнее</button></a>
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-xs-6">
                                             <a href="/payment"><button class="btn btnStyle btnStyle_сolor">Оплатить</button></a>
@@ -347,5 +347,26 @@
             </div>
         </div>
     </div>
-
+	<script>
+        $(document).ready(function() {
+            setInterval(function () {
+                $.ajax({
+                    url: '/office/update',
+                    dataType: 'json',
+                    data: {
+                        ajax: true
+                    },
+                    type: 'GET',
+                    success: function (html) {
+                        // var data = JSON.parse(html);
+                        // var count = data.response[0].value;
+                        if (html.result) {
+                            $('#controllers_block').empty();
+                            $('#controllers_block').html(html.result);
+                        }
+                    }
+                });
+            }, 60*5*1000);
+        });
+	</script>
 @endsection
