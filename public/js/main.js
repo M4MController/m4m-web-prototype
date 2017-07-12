@@ -165,43 +165,50 @@ $(document).ready(function(){
 			el.removeClass("open_tab");
 		})
 	}
+    //
+    // function sum() {
+     //    var id = $('.controllerid').data('controllerid');
+     //    $.ajax({
+     //        url: '/entity/update/view',
+     //        dataType: 'json',
+     //        data: {
+     //            id: id
+     //        },
+     //        type:'GET',
+     //        success:function(html){
+     //            // var data = JSON.parse(html);
+     //            // var count = (data.response[0].value - 109750) * 0.02;
+     //            //
+     //            // $('.sum b').html(count.toFixed(2));
+     //            if(html.result){
+     //                $('#sensors_block').empty();
+     //                $('#sensors_block').html(html.result);
+     //            }
+     //        }
+     //    });
+    // }
+	// sum();
 
-    function sum() {
-        $.ajax({
-            url: '/object/update/json',
-            dataType: 'json',
-            data: {
-                ajax: true
-            },
-            type:'GET',
-            success:function(html){
-                var data = JSON.parse(html);
-                var count = (data.response[0].value - 109750) * 0.02;
-
-                $('.sum b').html(count.toFixed(2));
-            }
-        });
-    }
-	sum();
-
-    function updateController() {
-        $.ajax({
-            url: '/object/update/json',
-            dataType: 'json',
-            data: {
-            	ajax: true
-			},
-            type:'GET',
-            success:function(html){
-                var data = JSON.parse(html);
-                var count = data.response[0].value;
-
-                $('#hot-water b').html(count);
-            }
-        });
-    }
-    updateController();
-    setInterval(updateController , 10000);
+    // function updateController() {
+    //     $.ajax({
+    //         url: '/office/update',
+    //         dataType: 'json',
+    //         data: {
+    //         	ajax: true
+		// 	},
+    //         type:'GET',
+    //         success:function(html){
+    //             // var data = JSON.parse(html);
+    //             // var count = data.response[0].value;
+		// 		if(html.result){
+    //                 $('#controllers_block').empty();
+    //                 $('#controllers_block').html(html.result);
+		// 		}
+    //         }
+    //     });
+    // }
+    // updateController();
+    // setInterval(updateController() , 5000);
 
 
     $('.step1').on('click', function (e) {
@@ -254,7 +261,7 @@ $(document).ready(function(){
 		var category = $('#m4mCategory option:selected').text();
 		var deviceMac = $('#deviceMac').val();
 		var city = $('#city').val();
-        var _token = $('#token').val();
+        var _token = $('input[name="_token"]').val();
 
         $.ajax({
             type: "POST",

@@ -7,7 +7,6 @@
 namespace App\Http\Controllers;
 
 use App\Object;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -26,17 +25,61 @@ class ObjectController extends Controller
         echo json_encode($json);
     }
 
+    /**
+     * @param Request $request
+     */
     public function saveController(Request $request)
     {
-
-        $object = new Object();
-        $object->user_id = Auth::id();
-        $object->name = $request->input('m4mEntityName');
-        $object->device_id = $request->input('deviceId');
-        $object->category = $request->input('category');
-        $object->mac = $request->input('deviceMac');
-        $object->city = $request->input('city');
-        $object->save();
+        Object::addObject($request);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function checkController(Request $request)
+    {
+        if($request->ajax()){
+            $validator = \Validator::make($request->all(), [
+                'deviceId' => 'required'
+            ]);
+            if (!$validator->fails()) {
+                $idController = $request->request->get('deviceId');
+                if ($this->sendApiRequest($idController) == "200") {
+                    return response()->json([
+                        'error' => '0'
+                    ]);
+                }
+            }
+        }
+
+        return response()->json([
+            'error' => '1'
+        ]);
+
+    }
+
+    /**
+     * @param $idController
+     * @return string
+     */
+    private function sendApiRequest($idController)
+    {
+        // Когда API реализует функционал подогнать под требования
+//        $url = "https://app.swaggerhub.com/apis/wolf1996/iot_api/1.0.0/";
+//
+//        $ch = curl_init($url);
+//        curl_setopt($ch, CURLOPT_HEADER, false);
+//        curl_setopt($ch, CURLOPT_NOBODY  , true);
+//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//        curl_setopt($ch, CURLOPT_POST, 1);
+//        curl_setopt($ch, CURLOPT_POSTFIELDS,
+//            "id_controller=" . $idController);
+//        curl_exec($ch);
+//        $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+//        curl_close($ch);
+
+//        return (string)$httpcode;
+        return "200";
+    }
 }
