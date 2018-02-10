@@ -1,4 +1,7 @@
 # M4M Web Prototype
+See online: https://ed-asriyan.github.io/m4m-web-prototype
+
+or run locally:
 ```bash
 docker build -t m4m .
 docker run -p 5000:80 m4m
