@@ -1,5 +1,5 @@
 # M4M Web Prototype
-See online: https://ed-asriyan.github.io/m4m-web-prototype
+See online: https://M4MController.github.io/m4m-web-prototype
 
 or run locally:
 ```bash
